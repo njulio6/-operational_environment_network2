@@ -4,7 +4,6 @@ locals {
   create_vpc = var.create_vpc
 }
 
-#creating VPC
 resource "aws_vpc" "kojitechs_vpc" {
   count = local.create_vpc ? length(var.vpc_cidr) : 0
 
@@ -17,7 +16,6 @@ resource "aws_vpc" "kojitechs_vpc" {
   }
 }
 
-#creating IGW # 
 resource "aws_internet_gateway" "igw" {
   count = local.create_vpc ? length(var.vpc_cidr) : 0
 
@@ -27,7 +25,6 @@ resource "aws_internet_gateway" "igw" {
   }
 }
 
-#creating public subnets using counts
 resource "aws_subnet" "pub_subnet" {
   count = local.create_vpc ? length(var.pub_subnet_cidr) : 0
 
@@ -43,12 +40,13 @@ resource "aws_subnet" "pub_subnet" {
 
 resource "aws_subnet" "priv_subnet" {
   count             = local.create_vpc ? length(var.priv_subnet_cidr) : 0
+
   vpc_id            = local.vpc_id
   cidr_block        = var.priv_subnet_cidr[count.index]
   availability_zone = element(var.priv_subnet_az, count.index)
 
   tags = {
-    Name = "priv_subnet_${element(var.priv_subnet_az, count.index)}" #appending the az name to the subn
+    Name = "priv_subnet_${element(var.priv_subnet_az, count.index)}" 
   }
 }
 
@@ -60,11 +58,10 @@ resource "aws_subnet" "database_subnet" {
   availability_zone = element(var.database_subnet_az, count.index)
 
   tags = {
-    Name = "database_subnet_${element(var.database_subnet_az, count.index)}" #appending the az name to the subn
+    Name = "database_subnet_${element(var.database_subnet_az, count.index)}" 
   }
 }
 
-#creating public route table
 resource "aws_route_table" "route_table" {
   count = local.create_vpc ? 1 : 0
 
