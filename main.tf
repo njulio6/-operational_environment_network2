@@ -39,14 +39,14 @@ resource "aws_subnet" "pub_subnet" {
 }
 
 resource "aws_subnet" "priv_subnet" {
-  count             = local.create_vpc ? length(var.priv_subnet_cidr) : 0
+  count = local.create_vpc ? length(var.priv_subnet_cidr) : 0
 
   vpc_id            = local.vpc_id
   cidr_block        = var.priv_subnet_cidr[count.index]
   availability_zone = element(var.priv_subnet_az, count.index)
 
   tags = {
-    Name = "priv_subnet_${element(var.priv_subnet_az, count.index)}" 
+    Name = "priv_subnet_${element(var.priv_subnet_az, count.index)}"
   }
 }
 
@@ -58,7 +58,7 @@ resource "aws_subnet" "database_subnet" {
   availability_zone = element(var.database_subnet_az, count.index)
 
   tags = {
-    Name = "database_subnet_${element(var.database_subnet_az, count.index)}" 
+    Name = "database_subnet_${element(var.database_subnet_az, count.index)}"
   }
 }
 

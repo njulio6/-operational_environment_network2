@@ -51,6 +51,9 @@ No modules.
 
 | Name | Description |
 |------|-------------|
+| <a name="output_database_subnet"></a> [database\_subnet](#output\_database\_subnet) | output for database subnet |
+| <a name="output_private_subnet"></a> [private\_subnet](#output\_private\_subnet) | output for private subnet |
+| <a name="output_public_subnet"></a> [public\_subnet](#output\_public\_subnet) | output for public subnet |
 | <a name="output_vpc_id"></a> [vpc\_id](#output\_vpc\_id) | Kojitechs vpc id |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
